@@ -18,10 +18,10 @@ import telebot
 TOKEN = '<token_string>'
 tb = telebot.TeleBot(TOKEN)	#create a new Telegram Bot object
 
-# Upon calling this function, TeleBot starts polling the Telegram servers for new messages.
-# - interval: int (default 0) - The interval between polling requests
-# - timeout: integer (default 20) - Timeout in seconds for long polling.
-# - allowed_updates: List of Strings (default None) - List of update types to request 
+- Upon calling this function, TeleBot starts polling the Telegram servers for new messages.
+- interval: int (default 0) - The interval between polling requests
+- timeout: integer (default 20) - Timeout in seconds for long polling.
+- allowed_updates: List of Strings (default None) - List of update types to request 
 tb.infinity_polling(interval=0, timeout=20)
 
 # getMe
@@ -46,7 +46,6 @@ tb.edit_message_text(new_text, chat_id, message_id)
 # forwardMessage
 tb.forward_message(to_chat_id, from_chat_id, message_id)
 
-# All send_xyz functions which can take a file as an argument, can also take a file_id instead of a file.
 # sendPhoto
 photo = open('/tmp/photo.png', 'rb')
 tb.send_photo(chat_id, photo)
@@ -89,8 +88,8 @@ tb.send_video_note(chat_id, "FILEID")
 tb.send_location(chat_id, lat, lon)
 
 # sendChatAction
-# action_string can be one of the following strings: 'typing', 'upload_photo', 'record_video', 'upload_video',
-# 'record_audio', 'upload_audio', 'upload_document' or 'find_location'.
+- action_string can be one of the following strings: 'typing', 'upload_photo', 'record_video', 'upload_video',
+- 'record_audio', 'upload_audio', 'upload_document' or 'find_location'.
 tb.send_chat_action(chat_id, action_string)
 
 # getFile
