@@ -2,7 +2,7 @@ import telebot
 import stripe
 from datetime import datetime
 
-TOKEN = '5361539650:AAGOKpdd7RmQ8ZIaTTnS2gbRR-mPGVJvCGs'
+TOKEN = ''
 
 bot = telebot.TeleBot(TOKEN)
 
