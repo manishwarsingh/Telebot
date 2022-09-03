@@ -2,6 +2,7 @@ import telebot
 import stripe
 from datetime import datetime
 
+#token that can be generated talking with @BotFather on telegram
 TOKEN = ''
 
 bot = telebot.TeleBot(TOKEN)
@@ -36,16 +37,18 @@ def card(message):
 
 @bot.message_handler()
 def card_details(message):
+    #stripe test Api for  validates the card details.
     stripe.api_key = "sk_test_51H7NCGKebr7ly2dMDkL8cNEdmPOb5Zuv13erDWnqCL11WjUnkIMoOEy2lgC3I2SltKbpMf4YyiSu0dsCBbCG09I7005yMBC8YI"
     global state
     try:
 
         if state == NUMBER:
-
+            #fatch the card number from the user.
             user_input_card_number = message.text
             data['number'] = user_input_card_number
             print(' user_input_card_number', user_input_card_number)
-
+            
+            # Return the matching response to the user input.
             if len(user_input_card_number) == 16:
                 msg_to_user = "\n Please Enter the card cvc"
                 state = CVC
@@ -57,11 +60,13 @@ def card_details(message):
             bot.send_message(message.chat.id, f"{msg_to_user}")
 
         elif state == CVC:
-
+            
+            #fatch the card cvc from the user.
             user_input_card_cvc = message.text
             data['cvc'] = user_input_card_cvc
             print(' user_input_card_cvc', user_input_card_cvc)
-
+            
+            # Return the matching response to the user input.
             if len(user_input_card_cvc) == 3:
                 msg_to_user = "\n Please Enter the card exp_year"
                 state = EXP_YEAR
@@ -73,13 +78,15 @@ def card_details(message):
             bot.send_message(message.chat.id, f"{msg_to_user}")
 
         elif state == EXP_YEAR:
-
+            
+            #fatch the card exp_year from the user.
             user_input_card_exp_year = message.text
             data['exp_year'] = user_input_card_exp_year
             print(' user_input_card_exp_year', type(user_input_card_exp_year))
             currentYear = datetime.now().year
             print(currentYear)
-
+            
+            # Return the matching response to the user input.
             if (len(user_input_card_exp_year)
                     == 4) or (len(user_input_card_exp_year) == 2):
                 msg_to_user = "\n Please Enter the card exp_month"
@@ -92,7 +99,8 @@ def card_details(message):
             bot.send_message(message.chat.id, f"{msg_to_user}")
 
         elif state == EXP_MONTH:
-
+            
+            #fatch the card exp_month from the user.
             user_input_card_exp_month = message.text
             data['exp_month'] = user_input_card_exp_month
             print(' user_input_card_exp_month', user_input_card_exp_month)
@@ -101,12 +109,13 @@ def card_details(message):
             # print(number)
             currentMonth = datetime.now().month
             print(currentMonth)
-
+            
+            # Return the matching response to the user
             if (len(user_input_card_exp_month)
                     == 1) or (len(user_input_card_exp_month) == 2):
 
                 try:
-
+                    
                     strapi = stripe.PaymentMethod.create(
                         type="card",
                         card={
@@ -152,6 +161,6 @@ def card_details(message):
 
         bot.send_message(message.chat.id, f"{err}")
 
-
+# Run the bot
 print("Bot started...")
 bot.polling()
